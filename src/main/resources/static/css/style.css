@@ -1,0 +1,9 @@
+.task{
+     font-weight: 100 !important;
+     font-size: 1.9em;
+     padding-top: 6px !important;
+     text-shadow: black 5px 5px 20px;
+}
+.main-title{
+    font-family: 'Black Han Sans', sans-serif;
+}

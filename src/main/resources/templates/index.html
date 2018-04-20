@@ -5,44 +5,59 @@
     <title>Todo List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Using CDN -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
 
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
 </head>
 <body>
 <div class="container">
 
-    <h1 class="center-align">My personal Todo List</h1>
-<br/>
+    <h1 class="center-align main-title">My personal Todo List</h1>
+    <br/>
 
-<form th:object="${newToDo}" th:action="@{/}" method="post">
-    <h5>Add New Task</h5>
+    <form th:object="${newToDo}" th:action="@{/}" method="post">
+        <!--<h5>Add New Task</h5>-->
+        </br>
+        <div class="row center-align">
+            <div class="col s8 m6"><input type="text" th:field="*{name}" placeholder="Add new Task" required></div>
+            <div class="col s2 m3">
+                <button type="submit" class="waves-effect waves-light btn-large blue accent-1"> <i
+                        class="material-icons">add</i></button>
+            </div>
+        </div>
+    </form>
+
     </br>
-    <input type="text" th:field="*{name}">
-    <button type="submit" class="waves-effect waves-light btn-large blue accent-1">Add todo</button>
-</form>
-
-</br>
-</br>
+    </br>
 
 
-<table>
-    <tr th:each="todo: ${todos}">
-        <td th:text="${todo.name}"></td>
-        <td>
-            <form th:if="${todo.done} == false" th:action="@{/done/{id}(id=${todo.id})}" method="get">
-                &nbsp;&nbsp;<button name="action" value="done" type="submit" class="waves-effect waves-light btn-large green lighten-3">Done</button>
-            </form>
-        </td>
-        <td>
-            <form th:action="@{/{id}(id=${todo.id})}" >
-                &nbsp;&nbsp; <button name="action" value="delete" type="submit" class="waves-effect waves-light btn-large red lighten-3">Delete</button>
-            </form>
-        </td>
-    </tr>
+    <div>
+        <div th:each="todo: ${todos}" class="col">
+            <div class="row center-align">
+                <div th:text="${todo.name}" class="col s3 m4 task"></div>
+                <div class="col s0 m2">
+                    <form th:if="${todo.done} == false" th:action="@{/done/{id}(id=${todo.id})}" method="get">
+                        <button name="action" value="done" type="submit"
+                                class="waves-effect waves-light btn-large green lighten-3"> <i
+                                class="material-icons">check</i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col s0 m2">
+                    <form th:action="@{/{id}(id=${todo.id})}">
+                        <button name="action" value="delete" type="submit"
+                                class="waves-effect waves-light btn-large red lighten-3"> <i
+                                class="material-icons">delete</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
 
-</table>
+        </div>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
