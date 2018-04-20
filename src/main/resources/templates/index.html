@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Using CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div class="container">
+
+    <h1 class="center-align">My personal Todo List</h1>
+<br/>
+
+<form th:object="${newToDo}" th:action="@{/}" method="post">
+    <h5>Add New Task</h5>
+    </br>
+    <input type="text" th:field="*{name}">
+    <button type="submit" class="waves-effect waves-light btn-large blue accent-1">Add todo</button>
+</form>
+
+</br>
+</br>
+
+
+<table>
+    <tr th:each="todo: ${todos}">
+        <td th:text="${todo.name}"></td>
+        <td>
+            <form th:if="${todo.done} == false" th:action="@{/done/{id}(id=${todo.id})}" method="get">
+                &nbsp;&nbsp;<button name="action" value="done" type="submit" class="waves-effect waves-light btn-large green lighten-3">Done</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/{id}(id=${todo.id})}" >
+                &nbsp;&nbsp; <button name="action" value="delete" type="submit" class="waves-effect waves-light btn-large red lighten-3">Delete</button>
+            </form>
+        </td>
+    </tr>
+
+</table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+</body>
+</html>
